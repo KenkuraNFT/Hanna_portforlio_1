@@ -114,14 +114,6 @@ backToTop.addEventListener('click', () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
 });
 
-// ESCキーでモバイルナビを閉じる
-window.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && document.body.classList.contains('nav-open')) {
-        document.body.classList.remove('nav-open');
-        document.querySelector('.burger').setAttribute('aria-expanded', 'false');
-    }
-});
-
 // モーダルの開閉処理
 const modal = document.querySelector('.modal');
 const modalContent = document.querySelector('.modal__content');
@@ -159,11 +151,6 @@ const categoryParam = urlParams.get('category') || 'all';
 
 // カテゴリフィルターの処理
 const filterButtons = document.querySelectorAll('.filter-btn');
-
-// フィルターボタンが見つからない場合の警告
-if (!filterButtons.length) {
-    console.warn('Filter buttons not found – check HTML patch');
-}
 const galleryContainer = document.querySelector('.gallery__container');
 
 // 初期状態のフィルター設定
@@ -202,38 +189,6 @@ function filterGallery(category) {
         }
     });
 }
-
-// カテゴリーリストの表示制御
-const gallery = document.querySelector('.gallery');
-const categories = document.querySelector('.gallery__categories');
-
-// ギャラリーページに触れたときにカテゴリーを表示
-gallery.addEventListener('mouseenter', () => {
-    categories.classList.add('active');
-});
-
-// ギャラリーページからマウスを離したときにカテゴリーを非表示
-gallery.addEventListener('mouseleave', () => {
-    categories.classList.remove('active');
-});
-
-// カテゴリーリンクのクリックイベント
-const categoryLinks = document.querySelectorAll('.category-item');
-categoryLinks.forEach(link => {
-    link.addEventListener('click', (e) => {
-        e.preventDefault();
-        
-        // 現在のアクティブなリンクのクラスを削除
-        document.querySelector('.category-item.active')?.classList.remove('active');
-        
-        // クリックしたリンクにアクティブクラスを追加
-        link.classList.add('active');
-        
-        // カテゴリに基づいてアイテムをフィルター
-        const category = link.getAttribute('href').split('=')[1];
-        filterGallery(category);
-    });
-});
 
 // ギャラリー画像のクリックイベント
 const galleryItems = document.querySelectorAll('.gallery__item');
